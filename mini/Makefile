@@ -3,7 +3,11 @@ CC = cc
 SRC = main_parc.c \
 	./src/lexer.c \
 	./src/token.c \
+	./src/lexer1.c \
+	./src/linked_outils.c \
 	./src/outils.c \
+	./src/parser.c \
+	./src/parser1.c
 
 FLAGS = -Wall -Wextra -Werror
 ARG = -o

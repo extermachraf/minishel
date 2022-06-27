@@ -6,7 +6,7 @@
 /*   By: ael-kouc <ael-kouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 14:42:20 by ael-kouc          #+#    #+#             */
-/*   Updated: 2022/06/14 14:42:31 by ael-kouc         ###   ########.fr       */
+/*   Updated: 2022/06/26 07:25:13 by ael-kouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,6 @@ char *ft_strcat(char *dest, char *src)
 		j++;
 	}
 	dest[i + j] = '\0';
+	free(src);
 	return (dest);
 }

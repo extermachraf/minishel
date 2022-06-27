@@ -6,7 +6,7 @@
 /*   By: ael-kouc <ael-kouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 11:42:55 by ael-kouc          #+#    #+#             */
-/*   Updated: 2022/06/17 19:15:20 by ael-kouc         ###   ########.fr       */
+/*   Updated: 2022/06/27 18:42:46 by ael-kouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,26 @@ typedef struct token
     char	*value;
 	enum
 	{
-		TOKEN_ID,
-		WORD,
+		START,
+		CMD_WORD,
+		PIP,
 		S_Q,
 		D_Q,
 		REDIRECT_IN,//  <
 		REDIRECT_OT,//  >
-		D_REDIRECT_IN,// <<
-		D_REDIRECT_out,// >>
+		D_REDIRECT_IN, // <<
+		D_REDIRECT_OT, // >>
 		DOLLAR,// $
-		TOKEN_EOF,
+		SPACE,
+		RED_FLAG,
 	}	type;
 	struct token *next;
+	struct token *prev;
 }	t_token;
 
 t_token	*init_token(char *value, int type);
+void	token_add_back(t_token **token, char *value, int type);
+int		check_special_c(char c);
+void    free_first_node(t_token *token);
+int		ft_lstsize(t_token *token);
 #endif

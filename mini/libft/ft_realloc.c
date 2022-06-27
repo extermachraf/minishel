@@ -6,14 +6,14 @@
 /*   By: ael-kouc <ael-kouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 12:59:42 by ael-kouc          #+#    #+#             */
-/*   Updated: 2022/06/17 17:14:59 by ael-kouc         ###   ########.fr       */
+/*   Updated: 2022/06/25 10:32:53 by ael-kouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdio.h>
 
-void    ft_realloc(char *str, size_t size)
+char    *ft_realloc(char *str, size_t size)
 {
     char *tmp;
     int i;
@@ -27,4 +27,6 @@ void    ft_realloc(char *str, size_t size)
         i++;
     }
     free(tmp);
+    str[i] = '\0';
+    return(str);
 }

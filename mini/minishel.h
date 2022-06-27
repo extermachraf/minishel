@@ -6,7 +6,7 @@
 /*   By: ael-kouc <ael-kouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 11:43:13 by ael-kouc          #+#    #+#             */
-/*   Updated: 2022/06/16 16:56:49 by ael-kouc         ###   ########.fr       */
+/*   Updated: 2022/06/19 17:32:32 by ael-kouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINI_H
 # include "./src/includes/lexer.h"
 # include "./src/includes/token.h"
+# include "./src/includes/parser.h"
 # include "./libft/libft.h"
 # include <stdlib.h>
 # include <unistd.h>

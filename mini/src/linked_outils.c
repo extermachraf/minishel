@@ -1,23 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalnum.c                                       :+:      :+:    :+:   */
+/*   linked_outils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ael-kouc <ael-kouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/22 04:10:39 by ael-kouc          #+#    #+#             */
-/*   Updated: 2022/06/25 13:39:49 by ael-kouc         ###   ########.fr       */
+/*   Created: 2022/06/20 18:38:06 by ael-kouc          #+#    #+#             */
+/*   Updated: 2022/06/26 08:06:21 by ael-kouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 
-int	ft_isalnum(int c)
+#include "../minishel.h"
+
+void    free_first_node(t_token *token)
 {
-	if ((c >= 48 && c <= 57)
-		|| (c >= 65 && c <= 90)
-		|| (c >= 97 && c <= 122))
-		return (1);
-	else
-		return (0);
+    t_token *tmp;
+
+    tmp = token;
+    token = token->next;
+    free(tmp);
 }
+

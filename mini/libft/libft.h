@@ -6,7 +6,7 @@
 /*   By: ael-kouc <ael-kouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 04:25:02 by ael-kouc          #+#    #+#             */
-/*   Updated: 2022/06/14 14:42:51 by ael-kouc         ###   ########.fr       */
+/*   Updated: 2022/06/26 09:25:17 by ael-kouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,9 @@ void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 char	**ft_split(char const *s, char c);
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));
-void    ft_realloc(char *str, size_t size);
+char    *ft_realloc(char *str, size_t size);
 char    *ft_strcat(char *dest, char *src);
+void    ft_putstr(char *str);
+int     ft_strcmp(char *s1, char *s2);
 
 #endif

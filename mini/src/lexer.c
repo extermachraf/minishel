@@ -6,7 +6,7 @@
 /*   By: ael-kouc <ael-kouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 11:50:32 by ael-kouc          #+#    #+#             */
-/*   Updated: 2022/06/17 21:49:24 by ael-kouc         ###   ########.fr       */
+/*   Updated: 2022/06/27 12:18:10 by ael-kouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,72 +18,90 @@ t_lexer	*init_lexer(char *src)
 	t_lexer *lexer;
 
 	lexer = malloc(sizeof(t_lexer));
-	lexer->src = src;
+	lexer->src = ft_strdup(src);
 	lexer->src_size = ft_strlen(src);
 	lexer->i = 0;
 	lexer->j = 0;
 	lexer->c = lexer->src[lexer->i];
-	if(lexer->src[lexer->i + 1] != '\0')
-		lexer->n_c = lexer->src[lexer->i + 1];
 	return (lexer);
 }
 
 void	lexer_skip_space(t_lexer *lexer)
 {
-	while(lexer->src[lexer->i])
-	{
-		if(lexer->src[lexer->i] == ' ' || lexer->src[lexer->i] == '\t'
+	while(lexer->src[lexer->i] == ' ' || lexer->src[lexer->i] == '\t'
 		|| lexer->src[lexer->i] == '\n' || lexer->src[lexer->i] == '\r')
-			lexer_advance(lexer);
-	}
-	
+		lexer_advance(lexer);
 }
 
 void	lexer_advance(t_lexer *lexer)
 {
-	if (lexer->i < lexer->src_size && lexer->i != '\0')
+	if (lexer->i < lexer->src_size && lexer->c != '\0')
 	{
 		lexer->i++;
 		lexer->c = lexer->src[lexer->i];
-		if (lexer->src[lexer->i + 1] != '\0')
-			lexer->n_c = lexer->src[lexer->i + 1];
 	}
 }
 
-t_token	*lexer_parse_id(t_lexer *lexer)
+char	*take_id(t_lexer *lexer)
 {
 	char *value;
-
-	value = malloc(sizeof(char) * 1);
-	while(ft_isalnum(lexer->c))
+	char *c;
+	
+	if(lexer->src_size == 1)
+		return(get_c_as_str(lexer->c));
+	value = malloc(sizeof(char));
+	value[0] = '\0';
+	while(!(check_special_c(lexer->c) == 0) && lexer->c != '\0')
 	{
-		ft_realloc(value, ft_strlen(value) + 2);
-		value = ft_strcat(value, (char[]){lexer->c ,0});
+		c = get_c_as_str(lexer->c);
+		value = ft_realloc(value, (ft_strlen(c) + ft_strlen(value)));
+		value = ft_strcat(value, c);
 		lexer_advance(lexer);
 	}
-	return(init_token(value, TOKEN_ID));
+	lexer_back(lexer);
+	return(value);
 }
 
-t_token	*lexer_advance_with(t_lexer *lexer, t_token *token)
+void	lexer_advance_with(t_lexer *lexer, t_token *token, char *value,
+	int type)
 {
-	lexer_advance(lexer);
-	return(token);
+	if(lexer->src[lexer->i] != '\0')
+		lexer_advance(lexer);
+	token_add_back(&token, value, type);
 }
 
-t_token	*lexer_next_token(t_lexer *lexer, t_token *token)
+t_token	*pick_tokens(t_lexer *lexer)
 {
-	while(lexer->c != '\0')
+	t_token *token;
+	token = init_token("S", START);
+	while(lexer->i < ft_strlen(lexer->src) && lexer->c != '\0')
 	{
-		if(ft_isalnum(lexer->c))
-			return(lexer_advance_with(lexer, lexer_parse_id(lexer)));
+		lexer_skip_space(lexer);
+		if(check_special_c(lexer->c) == 1)
+			lexer_advance_with(lexer, token, take_id(lexer), CMD_WORD);
 		if(lexer->c == '|')
-		else if(lexer->c == '\'')
-		else if(lexer->c == '"')
-		else if(lexer->c == '<' && lexer->n_c == '<')
-		else if(lexer->c == '>' && lexer->n_c == '>')
-		else if(lexer->c == '<' && lexer->n_c != '<')
-		else if(lexer->c == '>' && lexer->n_c != '>')
-		else if(lexer->c == '$')	
+			lexer_advance_with(lexer, token, "|", PIP);
+		if(lexer->c == '>' && lexer->src[lexer->i + 1] == '>')
+		{
+			lexer_advance(lexer);
+			lexer_advance_with(lexer, token, ">>", D_REDIRECT_OT);
+		}
+		if(lexer->c == '<' && lexer->src[lexer->i + 1] == '<')
+		{
+			lexer_advance(lexer);
+			lexer_advance_with(lexer, token, "<<", D_REDIRECT_IN);
+		}
+		if(lexer->c == '>' && lexer->src[lexer->i + 1] != '>')
+			lexer_advance_with(lexer, token, ">", REDIRECT_OT);
+		if(lexer->c == '<' && lexer->src[lexer->i + 1] != '<')
+			lexer_advance_with(lexer, token, "<", REDIRECT_IN);
+		if(lexer->c == '$')
+			lexer_advance_with(lexer, token, "$", DOLLAR);
+		if(lexer->c == '\'')
+			pick_bitwen_pipe(lexer, token, S_Q, '\'');
+		if(lexer->c == '"')
+			pick_bitwen_pipe(lexer, token, D_Q, '"');
+		
 	}
-	return(init_token(0, TOKEN_EOF));
+	return(token);
 }
