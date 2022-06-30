@@ -6,7 +6,7 @@
 /*   By: ael-kouc <ael-kouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 11:43:13 by ael-kouc          #+#    #+#             */
-/*   Updated: 2022/06/19 17:32:32 by ael-kouc         ###   ########.fr       */
+/*   Updated: 2022/06/28 15:29:37 by ael-kouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,27 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
+typedef struct nav
+{
+	int i;
+	int	j;
+	int	y;
+}	t_nav;
 
-void	get_back_pipes(char **str);
-char	**split_redline_pip(char *str);
+
+typedef struct minishel
+{
+	t_parser	*parser;
+	t_token		*token;
+	t_lexer		*lexer;
+	char		**env;
+	char		*read;
+	int			num_pip;
+}	t_mini;
+
+
+int		lent_d_pointer(char **str);
+char	**get_env(char	**str);
+t_nav	*init_nav(t_nav *nav);
 
 #endif

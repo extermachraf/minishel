@@ -1,33 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalnum.c                                       :+:      :+:    :+:   */
+/*   get_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ael-kouc <ael-kouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/22 04:10:39 by ael-kouc          #+#    #+#             */
-/*   Updated: 2022/06/29 17:46:40 by ael-kouc         ###   ########.fr       */
+/*   Created: 2022/06/28 14:17:45 by ael-kouc          #+#    #+#             */
+/*   Updated: 2022/06/28 14:23:06 by ael-kouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../minishel.h"
 
-int	ft_isalnum(int c)
+int lent_d_pointer(char **str)
 {
-	if ((c >= 48 && c <= 57)
-		|| (c >= 65 && c <= 90)
-		|| (c >= 97 && c <= 122)
-		|| (c == 95))
-		return (1);
-	else
-		return (0);
+	int	i;
+
+	i = 0;
+	while(str[i])
+		i++;
+	return(i);
 }
 
-int ft_isalnum2(char c)
+char	**get_env(char	**str)
 {
-	if((c >= 'a' && c <= 'z')
-		|| (c >= 'A' && c <= 'Z')
-		|| (c >= '1' && c <= '9'))
-		return(0);
-	return(1);
+	char	**env;
+	int		i;
+
+	i = 0;
+	env = malloc(sizeof(char *) * (lent_d_pointer(str) + 1));
+	while(str[i])
+	{
+		env[i] = ft_strdup(str[i]);
+		i++;	
+	}
+	env[i] = NULL;
+	return(env);
 }

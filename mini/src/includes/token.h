@@ -6,13 +6,14 @@
 /*   By: ael-kouc <ael-kouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 11:42:55 by ael-kouc          #+#    #+#             */
-/*   Updated: 2022/06/27 18:42:46 by ael-kouc         ###   ########.fr       */
+/*   Updated: 2022/06/30 17:03:06 by ael-kouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TOKEN_H
 #define TOKEN_H
 #include "lexer.h"
+
 
 typedef struct token
 {
@@ -41,4 +42,7 @@ void	token_add_back(t_token **token, char *value, int type);
 int		check_special_c(char c);
 void    free_first_node(t_token *token);
 int		ft_lstsize(t_token *token);
+t_token	*get_value_of_dollar(t_token *token, char **env);
+char	*check_env(char *str, char **env);
+// void	*expand_doll(t_token *token, char **env);
 #endif

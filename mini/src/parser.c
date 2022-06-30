@@ -6,7 +6,7 @@
 /*   By: ael-kouc <ael-kouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 17:30:38 by ael-kouc          #+#    #+#             */
-/*   Updated: 2022/06/27 15:22:43 by ael-kouc         ###   ########.fr       */
+/*   Updated: 2022/06/28 14:34:16 by ael-kouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,30 +35,31 @@ t_parser    *return_error(t_token *token)
 	else if (check_err_red(token) == 0)
 		return(init_parser("synta error in red", ERROR, 2));
 	else
-		return(init_parser("all good", GOOD, 0));
+		return(init_parser("all good", GOOD, 3));
 }
 
-// t_parser	*fill_parser_norm(t_token *token, t_parser *parser)
+// void	check_test_of_mango(t_token *tmp)
 // {
-// 	t_token	*tmp;
-
-// 	tmp = token;
-// 	parser = init_parser("Start", STAR, 1);
-// 	while(tmp)
+// 	char	*str;
+// 	while(tmp && (tmp->type == S_Q
+// 		|| tmp->type == D_Q))
 // 	{
-// 		if(tmp->type == CMD_WORD)
-			
-// 		tmp = tmp->next;
+// 		if(tmp->type = D_Q)
 // 	}
 // }
 
-// t_parser	*fill_parser(t_token *token)
+// t_parser	*fill_parser(t_token *token, t_parser *parser)
 // {
-// 	t_parser *parser;
-	
-// 	parser = return_error(token);
-// 	if(!(parser->type == GOOD))
-// 		return(parser);
-// 	parser = fill_parser_norm(token, parser);
-// }
+// 	t_token *tmp;
 
+// 	tmp = token;
+// 	parser = return_error(tmp);
+// 	if(parser->type == ERROR)
+// 		return(parser);
+// 	while (tmp)
+// 	{
+// 		if(tmp->type == CMD_WORD)
+// 			parser_add_back(&parser, tmp->value, WORD, 0);
+// 		if(tmp->type == S_Q || tmp->type == D_Q)
+// 	}
+// }

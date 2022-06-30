@@ -6,7 +6,7 @@
 /*   By: ael-kouc <ael-kouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 17:24:27 by ael-kouc          #+#    #+#             */
-/*   Updated: 2022/06/27 14:13:48 by ael-kouc         ###   ########.fr       */
+/*   Updated: 2022/06/28 12:27:43 by ael-kouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # define ERROR 0
 # define GOOD 1
 # define STAR 2
+# define WORD 3
 
 typedef struct parser
 {
@@ -31,4 +32,6 @@ int			check_err_quote(t_token *token);
 int			check_err_red(t_token *token);
 int			check_err_pip(t_token *token);
 t_parser    *return_error(t_token *token);
+void		parser_add_back(t_parser **parser, char *value, int type, int btw);
+
 #endif

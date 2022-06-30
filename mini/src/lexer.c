@@ -6,7 +6,7 @@
 /*   By: ael-kouc <ael-kouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 11:50:32 by ael-kouc          #+#    #+#             */
-/*   Updated: 2022/06/27 12:18:10 by ael-kouc         ###   ########.fr       */
+/*   Updated: 2022/06/30 19:39:29 by ael-kouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	lexer_advance(t_lexer *lexer)
 	}
 }
 
-char	*take_id(t_lexer *lexer)
+char	*take_id(t_lexer *lexer, char **env)
 {
 	char *value;
 	char *c;
@@ -53,7 +53,11 @@ char	*take_id(t_lexer *lexer)
 	value[0] = '\0';
 	while(!(check_special_c(lexer->c) == 0) && lexer->c != '\0')
 	{
-		c = get_c_as_str(lexer->c);
+		if(lexer->c == '$')
+			c = expand(lexer, env);
+		else
+			c = get_c_as_str(lexer->c);
+		// printf("{%s\n}}}", c);
 		value = ft_realloc(value, (ft_strlen(c) + ft_strlen(value)));
 		value = ft_strcat(value, c);
 		lexer_advance(lexer);
@@ -70,7 +74,7 @@ void	lexer_advance_with(t_lexer *lexer, t_token *token, char *value,
 	token_add_back(&token, value, type);
 }
 
-t_token	*pick_tokens(t_lexer *lexer)
+t_token	*pick_tokens(t_lexer *lexer, char **env)
 {
 	t_token *token;
 	token = init_token("S", START);
@@ -78,7 +82,11 @@ t_token	*pick_tokens(t_lexer *lexer)
 	{
 		lexer_skip_space(lexer);
 		if(check_special_c(lexer->c) == 1)
-			lexer_advance_with(lexer, token, take_id(lexer), CMD_WORD);
+		{
+			lexer_advance_with(lexer, token, take_id(lexer, env), CMD_WORD);
+			check_after_w(token, lexer);
+		}
+			
 		if(lexer->c == '|')
 			lexer_advance_with(lexer, token, "|", PIP);
 		if(lexer->c == '>' && lexer->src[lexer->i + 1] == '>')
@@ -95,13 +103,12 @@ t_token	*pick_tokens(t_lexer *lexer)
 			lexer_advance_with(lexer, token, ">", REDIRECT_OT);
 		if(lexer->c == '<' && lexer->src[lexer->i + 1] != '<')
 			lexer_advance_with(lexer, token, "<", REDIRECT_IN);
-		if(lexer->c == '$')
-			lexer_advance_with(lexer, token, "$", DOLLAR);
+		// if(lexer->c == '$')
+		// 	lexer_advance_with(lexer, token, "$", DOLLAR);
 		if(lexer->c == '\'')
 			pick_bitwen_pipe(lexer, token, S_Q, '\'');
 		if(lexer->c == '"')
 			pick_bitwen_pipe(lexer, token, D_Q, '"');
-		
 	}
 	return(token);
 }

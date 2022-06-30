@@ -7,7 +7,10 @@ SRC = main_parc.c \
 	./src/linked_outils.c \
 	./src/outils.c \
 	./src/parser.c \
-	./src/parser1.c
+	./src/parser1.c \
+	./src/get_env.c \
+	./src/expand_dollar.c \
+	./src/lexer_dollar.c 
 
 FLAGS = -Wall -Wextra -Werror
 ARG = -o

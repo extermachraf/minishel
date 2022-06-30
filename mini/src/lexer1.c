@@ -6,7 +6,7 @@
 /*   By: ael-kouc <ael-kouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 23:44:33 by ael-kouc          #+#    #+#             */
-/*   Updated: 2022/06/27 18:23:17 by ael-kouc         ###   ########.fr       */
+/*   Updated: 2022/06/29 15:33:50 by ael-kouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int no_second_quote(t_lexer *lexer, char c)
 
 int check_special_c(char c)
 {
-    if(c == '|' || c == '>' || c == '|' || c == '<'
+    if(c == '|' || c == '>'  || c == '<'
         || c == '\'' || c == '"' || c == ' ' || c == '\0')
         return(0);
     else
@@ -43,7 +43,8 @@ void    check_after_space(t_lexer *lexer, t_token *token)
         while(lexer->src[lexer->j] <= 32)
             lexer->j++;
         if(lexer->src[lexer->j] == '\'' || lexer->src[lexer->j] == '"')
-            token_add_back(&token, "space", SPACE);   
+            token_add_back(&token, "space", SPACE);
+        lexer->j = 0;
     }
 }
 
@@ -77,4 +78,13 @@ void    lexer_back(t_lexer *lexer)
 {
     lexer->i--;
     lexer->c = lexer->src[lexer->i];
+}
+
+void    check_after(t_lexer *lexer, t_token *token)
+{
+    lexer->j = lexer->i;
+    while(lexer->src[lexer->j] <= 32)
+        lexer->j++;
+    if(check_special_c(lexer->src[lexer->j]) == 1)
+        token_add_back(&token, "space", SPACE);
 }

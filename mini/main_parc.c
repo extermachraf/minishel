@@ -6,41 +6,43 @@
 /*   By: ael-kouc <ael-kouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 11:47:34 by ael-kouc          #+#    #+#             */
-/*   Updated: 2022/06/27 16:13:30 by ael-kouc         ###   ########.fr       */
+/*   Updated: 2022/06/30 19:49:58 by ael-kouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishel.h"
 
-int main()
+int main(int ac, char **av, char **envp)
 {
-    char *str;
-    t_parser *parser;
-    t_lexer *lexer;
-    t_token *token;
+    t_mini  *mini;
+    char    *str;
+
+    mini = malloc(sizeof(t_mini));
+    mini->env = get_env(envp);
     while(1)
     {
         str = readline("minishel>");
         add_history(str);
-        lexer = init_lexer(str);
-        token = pick_tokens(lexer);
-        // parser = return_error(token);
-        // printf("%s\n", parser->value);
+        mini->lexer = init_lexer(str);
+        mini->token = pick_tokens(mini->lexer, envp);
+        // mini->parser = return_error(mini->token);
+        // printf("%s\n", mini->parser->value);
         t_token *tmp;
-        tmp = token;
+        tmp = mini->token;
+        tmp = tmp->next;
         while(tmp)
         {
             printf("{%s}  ===  %d\n", tmp->value, tmp->type);
             tmp = tmp->next;
         }
-        free (lexer->src);
-        free(lexer);
-        while(token != NULL)
+        free (mini->lexer->src);
+        free(mini->lexer);
+        while(mini->token != NULL)
         {
-            tmp = token;
-            token = token->next;
+            tmp = mini->token;
+            mini->token = mini->token->next;
             free(tmp);
         }
-        token = NULL;
+        mini->token = NULL;
     }
 }
