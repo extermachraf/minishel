@@ -19,7 +19,7 @@ all : $(NAME)
 
 $(NAME): $(SRC)
 	make -C ./libft
-	$(CC)  $(FLA) -lreadline $(SRC) $(ARG) minishel ./libft/libft.a
+	$(CC) $(FLA) -lreadline $(SRC) $(ARG) minishel ./libft/libft.a -g
 
 clean : 
 	rm -f $(NAME)

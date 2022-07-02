@@ -6,7 +6,7 @@
 /*   By: ael-kouc <ael-kouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 12:59:42 by ael-kouc          #+#    #+#             */
-/*   Updated: 2022/06/25 10:32:53 by ael-kouc         ###   ########.fr       */
+/*   Updated: 2022/07/01 12:30:09 by ael-kouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char    *ft_realloc(char *str, size_t size)
         str[i] = tmp[i];
         i++;
     }
-    free(tmp);
     str[i] = '\0';
+    free(tmp);
     return(str);
 }

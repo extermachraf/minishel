@@ -6,7 +6,7 @@
 /*   By: ael-kouc <ael-kouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 11:47:34 by ael-kouc          #+#    #+#             */
-/*   Updated: 2022/06/30 19:49:58 by ael-kouc         ###   ########.fr       */
+/*   Updated: 2022/07/01 12:30:51 by ael-kouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int main(int ac, char **av, char **envp)
         mini->lexer = init_lexer(str);
         mini->token = pick_tokens(mini->lexer, envp);
         // mini->parser = return_error(mini->token);
-        // printf("%s\n", mini->parser->value);
+    //     // printf("%s\n", mini->parser->value);
         t_token *tmp;
         tmp = mini->token;
         tmp = tmp->next;
@@ -44,5 +44,6 @@ int main(int ac, char **av, char **envp)
             free(tmp);
         }
         mini->token = NULL;
+        free(str);
     }
 }

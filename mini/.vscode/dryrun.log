@@ -1,6 +1,6 @@
 make --dry-run --always-make --keep-going --print-directory
 make: Entering directory `/Users/ael-kouc/Desktop/mini'
 make -C ./libft
-cc   -lreadline main_parc.c ./src/lexer.c ./src/token.c ./src/lexer1.c ./src/linked_outils.c ./src/outils.c ./src/parser.c ./src/parser1.c ./src/get_env.c ./src/expand_dollar.c ./src/lexer_dollar.c  -o minishel ./libft/libft.a
+cc  -lreadline main_parc.c ./src/lexer.c ./src/token.c ./src/lexer1.c ./src/linked_outils.c ./src/outils.c ./src/parser.c ./src/parser1.c ./src/get_env.c ./src/expand_dollar.c ./src/lexer_dollar.c  -o minishel ./libft/libft.a -g
 make: Leaving directory `/Users/ael-kouc/Desktop/mini'
  

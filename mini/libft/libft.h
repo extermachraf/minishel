@@ -6,7 +6,7 @@
 /*   By: ael-kouc <ael-kouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 04:25:02 by ael-kouc          #+#    #+#             */
-/*   Updated: 2022/06/29 17:41:04 by ael-kouc         ###   ########.fr       */
+/*   Updated: 2022/07/01 22:43:03 by ael-kouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int		ft_isascii(int c);
 int		ft_isalnum(int c);
 int		ft_isalpha(int c);
 void	*ft_memset(void	*b, int c, size_t len);
-int		ft_strncmp(const char *s1, const char *s2, size_t n);
+int		ft_strncmp(char *s1, char *s2, unsigned int i);
 void	*ft_memchr(const void *s, int c, size_t n);
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 int		ft_atoi(const char *str);

@@ -6,7 +6,7 @@
 /*   By: ael-kouc <ael-kouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 15:27:43 by ael-kouc          #+#    #+#             */
-/*   Updated: 2022/06/28 15:28:33 by ael-kouc         ###   ########.fr       */
+/*   Updated: 2022/07/01 22:15:34 by ael-kouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,9 @@ void	check_after_w(t_token *token, t_lexer *lexer)
 		lexer->j++;
 	if(check_special_c(lexer->src[lexer->j]) == 1)
 		token_add_back(&token, "space", SPACE);
+	else if(lexer->src[lexer->j] == '"' ||
+		lexer->src[lexer->j] == '\'')
+	token_add_back(&token, "SPACE", SPACE);
 	lexer->j = 0;
 }
 
